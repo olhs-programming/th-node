@@ -6,7 +6,7 @@ INTERVAL = 30
 
 with open(SENSOR_ID + ".csv", "a+", 0) as f: 
     with open(SENSOR_ID + ".min.csv", "a+", 0) as f2: 
-        time = 0
+        counter_time = 0
         sum_temp = 0
         sum_hum = 0
         divide = 0
@@ -17,20 +17,20 @@ with open(SENSOR_ID + ".csv", "a+", 0) as f:
                 print "Temp={0:0.1f}C  Humidity={1:0.1f}%".format(t, h)
                 f.write(str(int(time.time())) + "," + str(round(t, 2)) + "," + str(round(h, 2)) + "\n")
 
-                time += 3
+                counter_time += 3
                 sum_temp += t
                 sum_hum += h
                 divide += 1
 
-                if time >= INTERVAL:
+                if counter_time >= INTERVAL:
                     if divide > 0:
                         f2.write(str(int(time.time())) + "," + str(round(sum_temp / divide, 2)) + "," + str(round(sum_hum / divide, 2)) + "\n")
-                    time = 0
+                    counter_time = 0
                     sum_temp = 0
                     sum_hum = 0
                     divide = 0
                 
                 time.sleep(3)
             else:
-                time += 5
+                counter_time += 5
                 time.sleep(5)
